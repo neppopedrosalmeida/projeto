@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://www.neppo.com.br/themes/wc_conversion/style.css">
+
+
+    <title>Efeuar Cadastro</title>
+
+    <!-- Bootstrap e CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/portfolio-item.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Menu Principal -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Projeto Ajude um cão!!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Inicio</a>
+                </li>
+                <li class="nav-item active" >
+                    <a class="nav-link" href="/cadastro">Cadastro
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contato">Contato</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div class="container">
+
+    <!-- Sub-menu -->
+    <h1 class="my-4">Realize o seu Cadastro
+        <small>Abaixo!!</small>
+    </h1>
+
+     <!--Função Th para retornar página e alerta de sucesso-->
+    <form class="form-horizontal" method="POST" action="/cadastro" th:object="${cadastro}">
+     <div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}">
+     </div>
+
+
+        <!--Função Th para tratar mensagens de Erro-->
+        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="detailedError : ${#fields.detailedErrors()}">
+                <span th:text="${detailedError.message}"></span>
+            </div>
+        </div>
+
+        <div class="container" bgcolor="red">
+            <h5 class="my-3">Os campos que possuem * são obrigatórios</h5>
+
+        </div>
+
+        <!--Formulário Nome -->
+        <div class="panel-body">
+        <div class="form-group has-herror">
+            <label for="nome" class="col-sm-2 control-label">Nome Completo *</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="nome" required name="nome"/>
+            </div>
+        </div>
+    </div>
+               <!--Campo Telefone-->
+                <div class="panel-body has-herror">
+                    <div class="form-group">
+                        <label for="telefone" class="col-sm-2 control-label">Telefone</label>
+                        <div class="col-sm-4">
+                            <input type="tel" class="form-control" id="telefone" name="telefone" />
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+        <!--Campo e-mail-->
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="email" class="col-sm-2 control-label">E-mail</label>
+                <div class="col-sm-4">
+                    <input type="email" class="form-control" id="email" name="email"/>
+                </div>
+            </div>
+        </div>
+
+            <!-- Dados do Animal -->
+            <h2 class="my-4">Insira os dados de Localiação do Animal
+                <small>Abaixo!!</small>
+            </h2>
+
+
+           <!--Campo Rua-->
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="rua" class="col-sm-2 control-label">Localização do Animal *</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="rua" required name="rua"/>
+                    </div>
+                </div>
+            </div>
+
+        <!--Campo Numero-->
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="numero" class="col-sm-2 control-label">Número *</label>
+                <div class="col-sm-4">
+                    <input type="number" class="form-control" id="numero" required name ="numero" pattern="[0-9]+$"/>
+                </div>
+            </div>
+        </div>
+
+               <!--Campo Raça-->
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="raca" class="col-sm-2 control-label">Raça *</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="raca" required name="raca"/>
+                        </div>
+                    </div>
+                </div>
+
+        <!--Campo Cep-->
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="cep" class="col-sm-2 control-label">CEP</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="cep" name="cep" onKeyPress="MascaraCep(form1.cep);"
+                           onBlur="ValidaCep(form1.cep)"/>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel-body">
+                <label for="estado" class="col-sm-2 control-label">Cidade *</label>
+
+                <select name="estado">
+                    <option value="1">Acre</option>
+                    <option value="2">Alagoas</option>
+                    <option value="3">Amapá</option>
+                    <option value="4">Amazonas</option>
+                    <option value="5">Bahia</option>
+                    <option value="6">Ceará</option>
+                    <option value="7">Distrito Federal</option>
+                    <option value="8">Espírito Santo</option>
+                    <option value="9">Goiás</option>
+                    <option value="10">Maranhão</option>
+                    <option value="11">Mato Grosso</option>
+                    <option value="12">Mato Grosso do Sul</option>
+                    <option value="13">Minas Gerais</option>
+                    <option value="14">Pará</option>
+                    <option value="15">Paraíba</option>
+                    <option value="16">Paraná</option>
+                    <option value="17">Pernambuco</option>
+                    <option value="18">Piauí</option>
+                    <option value="19">Rio de Janeiro</option>
+                    <option value="20">Rio Grande do Norte</option>
+                    <option value="21">Rio Grande do Sul</option>
+                    <option value="22">Rondônia</option>
+                    <option value="23">Roraima</option>
+                    <option value="24">Santa Catarina</option>
+                    <option value="25">São Paulo</option>
+                    <option value="26">Sergipe</option>
+                    <option value="27">Tocantins</option>
+                </select>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="cidade" required name="cidade"/>
+                </div>
+            </div>
+
+        <!--Campo Bairro-->
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="bairro" class="col-sm-2 control-label">Bairro *</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" id="bairro" required name="bairro"/>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="imagem" class="col-sm-2 control-label">Selecione um arquivo</label>
+                <div class="col-sm-4">
+                <input type="file" name="imagem" class="btn btn-success"  accept="image/png, image/jpeg" id="imagem" multiple />
+                </div>
+            </div>
+        </div>
+
+
+
+                <input type="submit" class="btn dropdown-toggle" data-th-classid="btn-outline-success" name="">
+
+    </form>
+
+    <footer class="main_footer">
+        <div class="wc_privacity ">
+            <div class="content">
+                <div class="copy">
+                    <div class="m_bottom2">
+                        <a href="https://www.neppo.com.br" title="Neppo - Tecnologia - Juntos Temos Soluções!">
+                            <img class="wc_logo_footer" src="https://www.neppo.com.br/themes/wc_conversion/images/logo-footer.png" alt="Neppo - Tecnologia - Juntos Temos Soluções!" title="Neppo - Tecnologia - Juntos Temos Soluções!">
+                        </a>
+                    </div>
+                    Copyright © 2018 Neppo - Tecnologia - Todos os direitos reservados.
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="/js/jquery/jquery.min.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script>
+        <script src="/js/jquery-input-mask-phone-number.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="/js/Validacao.js"></script>
+
+
+
+
+</html>
